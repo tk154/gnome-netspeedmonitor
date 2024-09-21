@@ -1,0 +1,8 @@
+{
+    "name" : "NetSpeedMonitor",
+    "description" : "Network speed monitor",
+    "shell-version" : [ "47.0" ],
+    "url" : "https://github.com/tk154/gnome-netspeedmonitor",
+    "uuid" : "netspeedmonitor@tk154",
+    "version" : 1.0
+}
