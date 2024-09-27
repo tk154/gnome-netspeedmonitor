@@ -10,7 +10,7 @@ import GLib from 'gi://GLib';
 
 
 export default class NetSpeedMonitor extends Extension {
-    interfaces = [ "enp7s0" ];
+    interfaces = [ "eno1", "wlan0" ];
 
     getBytes() {
         let [ bytesDown, bytesUp ] = [ 0, 0 ];
@@ -19,7 +19,7 @@ export default class NetSpeedMonitor extends Extension {
         let lines = String.fromCharCode(...contents).split('\n');
     
         for (let i = 2; i < lines.length; i++) {
-            let field = lines[i].split(/\s+/);
+            let field = lines[i].trimStart().split(/\s+/);
             let inface = field[0].slice(0, -1);
     
             if (this.interfaces.includes(inface)) {
@@ -38,7 +38,8 @@ export default class NetSpeedMonitor extends Extension {
         let speedMBitsDown = (currBytesDown - this.bytesDown) * 8 / 1024 / 1024;
     
         this.speedLabel.set_text(
-            `U:  ${speedMBitsUp.toFixed(1)} Mb/s\tD:  ${speedMBitsDown.toFixed(1)} Mb/s`
+            `U:  ${speedMBitsUp.toFixed(1)} Mb/s\t` +
+            `D:  ${speedMBitsDown.toFixed(1)} Mb/s`
         );
     
         [ this.bytesUp, this.bytesDown ] = [ currBytesUp, currBytesDown ];
